@@ -30,7 +30,14 @@ userRouter.post("/register", async (req, res) => {
     res.status(500).json({ msg: "Internal server error" });
   }
 });
-
+userRouter.get("/getUsers", async (req, res) => {
+	try {
+		const user = await UserModel.find();
+		res.status(200).send({ data: user });
+	} catch (error) {
+		res.status(500).json({ msg: "Internal server error" });
+	}
+});
 userRouter.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
